@@ -1,10 +1,6 @@
-# Simulación Concurrente (Versión N-Héroes y Visual)
+# Simulación de Gestión de Memoria (FIFO)
 
-Este proyecto, correspondiente a la Tarea N° 2 de Sistemas Operativos, implementa una simulación sincronizada basada en el clásico videojuego Doom.
-
-El desarrollo se centra en la simulación de entidades concurrentes (Héroes y Monstruos) que interactúan en un grid 2D. Cada entidad es gestionada por un hilo (thread) independiente, y sus interacciones (movimiento, detección, alerta y combate) están controladas mediante std::mutex y std::condition_variable para evitar condiciones de carrera.
-
-Esta versión implementa la extensión de N Héroes y renderiza la simulación en tiempo real en la terminal utilizando la biblioteca ncurses.
+Este proyecto implementa una simulación del mecanismo de gestión de memoria utilizado en sistemas operativos. Simula la creación de procesos, la gestión de memoria RAM y SWAP, y la manipulación de las páginas utilizando la política de reemplazo FIFO (First In, First Out).
 
 ## Tabla de contenido
 
