@@ -93,17 +93,11 @@ Este simulador demuestra cómo un sistema operativo maneja la memoria usando la 
 
 ### 1) Requisitos
 
-Se requiere un entorno UNIX (como Ubuntu/Debian) con las herramientas de compilación **g++**, **make** y la biblioteca **ncurses**.
+Se requiere un entorno UNIX (como Ubuntu/Debian) con las herramientas de compilación **g++**, **make**.
 
-```bash
-# Actualizar repositorios
-sudo apt update
 
-# Instalar ncurses (requisito para la UI visual)
-sudo apt install libncurses5-dev
-```
 ### 2) Crear los archivos del proyecto
-Cree una carpeta para el proyecto y coloque los archivos Makefile, config.txt y main.cpp en el mismo directorio.
+Cree una carpeta para el proyecto y coloque los archivos Makefile y main.cpp en el mismo directorio.
 
 ### 3) Compilar
 Con los archivos en la misma carpeta, ejecute make para compilar.
@@ -117,7 +111,11 @@ Para ejecutar la simulación se utiliza el siguiente comando:
 ```bash
 ./pager_sim
 ```
-
+### 5) Limpiar el ejecutable
+Para borrar el ejecutable y dejar solo el código, puedes usar::
+```bash
+./make clean
+```
 
 ## **Pruebas Realizadas**
 
