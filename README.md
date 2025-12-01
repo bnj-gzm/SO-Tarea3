@@ -1,7 +1,8 @@
 # Simulación de Gestión de Memoria (FIFO)
 
-Este proyecto implementa una simulación del mecanismo de gestión de memoria utilizado en sistemas operativos. Simula la creación de procesos, la gestión de memoria RAM y SWAP, y la manipulación de las páginas utilizando la política de reemplazo FIFO (First In, First Out).
+Este proyecto implementa una simulación para modelar la gestión de memoria en un sistema operativo utilizando la técnica de paginación. La simulación incluye la creación de procesos de tamaños aleatorios, la asignación de páginas a la memoria RAM y la memoria SWAP, y el manejo de page faults (fallos de página) mediante la política FIFO (First In, First Out).
 
+El objetivo de esta simulación es demostrar cómo el sistema maneja los accesos a memoria, realiza el reemplazo de páginas cuando se llena la memoria, y finaliza procesos aleatorios para liberar espacio. La política FIFO permite que la primera página cargada en la memoria sea la primera en ser reemplazada cuando se necesita espacio adicional.
 ## Tabla de contenido
 
 - [Información general](#información-general)
@@ -15,44 +16,59 @@ Este proyecto implementa una simulación del mecanismo de gestión de memoria ut
 ---
 
 ## Información general
+Este proyecto simula la gestión de memoria en un sistema operativo, utilizando la técnica de paginación. Se modelan dos tipos de memoria: RAM y SWAP. Los procesos, con tamaños aleatorios, se asignan primero a la RAM, y cuando esta se llena, se trasladan a la memoria SWAP.
 
-- El sistema implementa una simulación multi-hilo en un entorno UNIX. Está conformado por los siguientes componentes principales:
+Características principales:
 
-- Héroe(s): N hilos (std::thread) que representan a los personajes principales. Cada héroe sigue una ruta predefinida en el grid (config.txt) y ataca a los monstruos que entran en su rango de ataque.
+1) Gestión de Memoria:
 
-- Monstruos: M hilos (std::thread) que representan a los enemigos. Inicialmente están en estado pasivo ("Durmiendo").
+La memoria RAM y SWAP se gestionan de manera que las páginas de los procesos se almacenan primero en RAM. Si no hay espacio suficiente en RAM, las páginas se mueven a SWAP.
 
-- Hilo de Renderizado: 1 hilo (std::thread) dedicado a dibujar el estado de la simulación en la terminal usando ncurses, actualizando la UI sin bloquear la lógica de simulación.
+2) Política FIFO (First In, First Out):
 
-Lógica de Simulación:
+Cuando ocurre un page fault (cuando una página no está en RAM), se utiliza FIFO para reemplazar la página más antigua en RAM por la nueva página.
 
-- Cuando un héroe entra en el VISION_RANGE de un monstruo, este se activa.
-- El monstruo activado alerta a todos los otros monstruos dentro de su propio rango de visión (VISION_RANGE).
-- Todos los monstruos alertados comienzan a moverse hacia el héroe más cercano, siguiendo la ruta más corta (Distancia de Manhattan).
-- El héroe deja de moverse y entra en combate si hay monstruos en su ATTACK_RANGE. No reanuda su ruta hasta matar a todos los monstruos cercanos o morir.
-- La simulación finaliza cuando todos los héroes mueren o todos los monstruos son eliminados.
+3) Simulación de Accesos y Finalización de Procesos:
+
+Desde el segundo 30 en adelante, cada 5 segundos se finaliza un proceso aleatorio y se simula un acceso a una dirección virtual de un proceso.
+
+4) Manejo de Errores:
+
+Si tanto la RAM como el SWAP se llenan completamente, el programa termina con un error indicando que no hay memoria disponible.
+
+El propósito de esta simulación es demostrar cómo un sistema operativo maneja la memoria a través de la paginación y el reemplazo de páginas con FIFO, proporcionando una demostración visual de cómo los procesos interactúan con la memoria.
+
+
+
 ---
 
 ## Tecnologías utilizadas
+Este proyecto ha sido desarrollado utilizando las siguientes tecnologías y herramientas:
 
-- Entorno UNIX (Requisito obligatorio)
-- C++17 (g++)
-- make (Para la compilación)
-- pthreads (std::thread) (Para la gestión de N+M+1 hilos)
-- Herramientas de Sincronización (std::mutex, std::condition_variable)
-- ncurses (libncurses5-dev) (Para la interfaz gráfica en terminal)
+- **Lenguaje de programación:**  
+  - **C++17**: Utilizado para la implementación de la simulación y el manejo de la memoria. La simulación emplea características modernas de C++ para garantizar eficiencia y claridad en el código.
+  
+- **Compilador:**  
+  - **g++ (GNU Compiler Collection)**: Usado para compilar el código C++ en un entorno UNIX.
+  
+- **Bibliotecas:**  
+  - **std::mutex** y **std::condition_variable**: Para la sincronización entre los hilos del programa y la correcta ejecución de los accesos a memoria.
+  - **ncurses**: Utilizado para la creación de una interfaz de usuario en la terminal, permitiendo una visualización clara de los procesos, la memoria y las interacciones.
+  
+- **Entorno de desarrollo:**  
+  - **Ubuntu/Debian (Linux)**: El proyecto está desarrollado y probado en un entorno UNIX.
+  
+- **Herramientas de construcción:**  
+  - **make**: Utilizado para automatizar el proceso de compilación del proyecto mediante el archivo Makefile.
+
+
+
+
 ---
 
 ##  Características
 
-- Simulación Concurrente: Soporta N héroes y M monstruos, cada uno ejecutándose en su propio hilo.
-- Interfaz Gráfica en Terminal: Renderizado en tiempo real de la simulación usando la biblioteca ncurses, con ventanas separadas para el mapa y la UI de estado.
-- Parseo de Configuración: Lee y configura la simulación completa (mapa, N héroes, M monstruos) desde un archivo config.txt.
-- Movimiento por Ruta: Los héroes siguen una secuencia de coordenadas (x,y) predefinida.
-- Sistema de Combate: Héroes y monstruos tienen HP, ATTACK_DAMAGE y ATTACK_RANGE.
-- IA de Monstruos (Visión y Alerta): Los monstruos tienen un VISION_RANGE que, al activarse, provoca una alerta en cadena a otros monstruos cercanos.
-- Pathfinding de Monstruos: Los monstruos usan la Distancia de Manhattan para calcular la ruta más corta hacia el héroe más cercano una vez alertados.
-- Gestión de Sincronización: Implementa un std::mutex global y una std::condition_variable para coordinar los turnos de los monstruos y el dibujado, evitando condiciones de carrera.
+
 ---
 
 
