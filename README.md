@@ -151,7 +151,7 @@ Se realizaron diversas pruebas para verificar el correcto funcionamiento del sim
 El simulador se ejecutó correctamente en todos los casos, demostrando el manejo eficiente de la memoria, el uso adecuado de la política FIFO y la correcta gestión de errores cuando la memoria se llena.
 
 
-Prueba: #LINK YOUTUNE
+Prueba: https://youtu.be/4WODOEg4Rkg
 
 
 
